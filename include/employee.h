@@ -6,11 +6,6 @@
 
 namespace nsp
 {
-struct EmployeeHash
-{
-std::size_t operator() (const Employee&);
-};
-
 class Employee
 {
 private:
@@ -32,5 +27,12 @@ public:
     int maxMonthlyHours() const { return m_maxMonthlyHours; }
     Grade grade() const { return m_grade; }
 };
+
+
+struct EmployeeHash
+{
+std::size_t operator() (const Employee&);
+};
+
 }
 #endif // __EMPLOYEE_H__

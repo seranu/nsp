@@ -1,13 +1,14 @@
 #include "employee.h"
 
-#include <functional>
+#include <boost/functional/hash.hpp>
 
 namespace nsp
 {
 std::size_t  EmployeeHash::operator() (const Employee& e) 
 {
-    auto h1 = std::hash<std::string>{}(e.name());
-    auto h2 = std::hash<Grade>{}(e.grade());
-    return h1 ^ h2;
+    std::size_t seed = 0;
+    boost::hash_combine(seed, e.name());
+    boost::hash_combine(seed, e.grade());
+    return seed;
 }
 }
