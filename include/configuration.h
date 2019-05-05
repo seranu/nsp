@@ -1,6 +1,4 @@
-#ifndef __CONFIGURATION_H__
-#define __CONFIGURATION_H__
-
+#pragma once
 #include <string>
 
 namespace nsp
@@ -8,9 +6,17 @@ namespace nsp
 class Configuration
 {
 private:
-    
+    std::string m_fileName;
+
+
+    Configuration(const std::string& fileName)
+        : m_fileName(fileName)
+        {
+            init();
+        }
+
+    void init();
 public:
     static Configuration fromFile(const std::string& fileName);
 };
 }
-#endif // __CONFIGURATION_H__

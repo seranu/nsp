@@ -1,21 +1,24 @@
-#ifndef __SOLUTION_H__
-#define __SOLUTION_H__
+#pragma once
 
 #include <map>
-#include "employee.h"
-#include "shiftpattern.h"
+#include "nsptypes.h"
 
 namespace nsp
 {
+
 class Solution
 {
 private:
-    int m_score;
-    std::map<Employee, ShiftPattern> m_schedule;
+    Schedule m_schedule;
+    Penalty m_penalty;
 public:
-    bool valid() const;
-    int score() const { return m_score; }
-    const std::map<Employee, ShiftPattern>& schedule() const { return m_schedule; }
+    Solution(Schedule schedule) 
+        : m_schedule(move(schedule)) 
+        {
+        }
+    void setPenalty(const Penalty);
+    Penalty penalty() const { return m_penalty; }
+    const Schedule& schedule() const { return m_schedule; }
 };
 
 struct SolutionHash
@@ -24,5 +27,3 @@ struct SolutionHash
 };
 
 } // nsp
-
-#endif // __SOLUTION_H__

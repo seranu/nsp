@@ -1,6 +1,8 @@
-#ifndef __SOLUTION_FACTORY_H__
-#define __SOLUTION_FACTORY_H__
+#pragma once
+
 #include "solution.h"
+#include "configuration.h"
+
 namespace nsp
 {
 class SolutionFactory
@@ -10,4 +12,3 @@ public:
     static Solution createFrom(const Solution& sol);
 };
 }
-#endif __SOLUTION_FACTORY_H__

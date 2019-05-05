@@ -1,8 +1,7 @@
-#ifndef __EMPLOYEE_H__
-#define __EMPLOYEE_H__
+#pragma once
 
 #include <string>
-#include "grade.h"
+#include "nsptypes.h"
 
 namespace nsp
 {
@@ -35,4 +34,3 @@ std::size_t operator() (const Employee&);
 };
 
 }
-#endif // __EMPLOYEE_H__

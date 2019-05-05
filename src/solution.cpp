@@ -1,16 +1,11 @@
 #include "solution.h"
+#include "ruleengine.h"
+#include <cassert>
+#include <vector>
 #include <boost/functional/hash.hpp>
 
 namespace nsp 
 {
-
-bool Solution::valid() const
-{
-    ShiftPattern res;
-    for (const auto& p : m_schedule) {
-        assert()
-    }
-}
 
 std::size_t SolutionHash::operator()(const Solution& s)
 {
