@@ -1,13 +1,13 @@
 #pragma once
 
 #include "nsptypes.h"
+#include "irule.h"
 #include <memory>
 #include <vector>
 
 namespace nsp
 {
 class Solution;
-class IRule;
 class Configuration;
 class RuleEngine
 {

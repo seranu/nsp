@@ -23,6 +23,6 @@ private:
 
     void init();
 public:
-    static Configuration fromFile(const std::string& fileName);
+    static Configuration fromFile(const std::string& fileName){}
 };
 }

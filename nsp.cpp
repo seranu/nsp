@@ -16,9 +16,9 @@ int main(int argc, char* argv[])
     solver.solve();
     auto best = solver.bestSoFar();
     if (best) {
-        cout << *best;
+//        cout << *best;
     } else {
-        cout << "Couldn't find solution!\n";
+//        cout << "Couldn't find solution!\n";
     }
     return 0;
 }

@@ -16,8 +16,8 @@ public:
         : m_config(config)
         {
         }
-    void solve();
-    void iterate();
+    void solve() {}
+    void iterate() {}
     std::optional<Solution> bestSoFar() { return m_bestSolutionSoFar; }
 };
 }

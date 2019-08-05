@@ -2,6 +2,7 @@
 
 #include <map>
 #include "nsptypes.h"
+#include "employee.h"
 
 namespace nsp
 {
