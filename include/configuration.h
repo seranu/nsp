@@ -5,10 +5,15 @@
 
 namespace nsp
 {
+/*
+ * Configuration for solution
+ * 
+ *
+ */
 class Configuration
+
 {
 private:
-    
 public:
     static Configuration fromFile(const std::string& fileName);
 };

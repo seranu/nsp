@@ -8,7 +8,7 @@ bool Solution::valid() const
 {
     ShiftPattern res;
     for (const auto& p : m_schedule) {
-        assert()
+//        assert()
     }
 }
 
