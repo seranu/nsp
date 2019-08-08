@@ -34,6 +34,7 @@ public:
     }
 
     Day dayOfWeek() const {
+        // awsome formula ripped of wikipedia
         auto d = m_day, m = m_month, y = m_year;
         return static_cast<Day>((d+=m<3?y--:y-2,23*m/9+d+4+y/4-y/100+y/400)%7);
     }
