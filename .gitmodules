@@ -2,3 +2,7 @@
 	path = third-party/googletest
 	url = https://github.com/google/googletest
 	branch = v1.8.x
+[submodule "third-party/json"]
+	path = third-party/json
+	url = https://github.com/nlohmann/json.git
+	branch = release/3.7.0

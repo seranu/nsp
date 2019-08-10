@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "nsptypes.h"
+#include "nsp_types.h"
 
 namespace nsp
 {

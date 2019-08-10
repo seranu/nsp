@@ -1,6 +1,6 @@
 #pragma once
 
-#include "nsptypes.h"
+#include "nsp_types.h"
 
 namespace nsp
 {

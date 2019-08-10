@@ -1,7 +1,7 @@
 #pragma once
 
 #include <map>
-#include "nsptypes.h"
+#include "nsp_types.h"
 #include "employee.h"
 
 namespace nsp

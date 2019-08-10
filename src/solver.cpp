@@ -1,11 +1,7 @@
 #include "solver.h"
-#include "configuration.h"
-#include "solutionfactory.h"
+#include "iconfiguration.h"
+#include "solution_factory.h"
 
 namespace nsp
 {
-Solver::Solver(const Configuration& config) 
-{
-
-}
 }

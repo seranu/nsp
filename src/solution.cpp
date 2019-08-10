@@ -1,5 +1,5 @@
 #include "solution.h"
-#include "ruleengine.h"
+#include "rule_engine.h"
 #include <cassert>
 #include <vector>
 #include <boost/functional/hash.hpp>

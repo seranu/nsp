@@ -1,7 +1,7 @@
 #pragma once
 
-#include "nsptypes.h"
 #include "irule.h"
+#include "nsp_types.h"
 #include <memory>
 #include <vector>
 
@@ -13,7 +13,7 @@ class RuleEngine
 {
 private:
     RuleEngine() {}
-    std::vector<std::unique_ptr<IRule>> m_rules;
+    std::vector<std::shared_ptr<IRule>> m_rules;
 public:
     static RuleEngine createFromConfiguration(const Configuration&);
     Penalty computePenalty(const Solution&) const;

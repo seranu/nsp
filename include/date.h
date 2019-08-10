@@ -1,7 +1,6 @@
-#ifndef __DATE_H__
-#define __DATE_H__
-
+#pragma once
 #include <cassert>
+#include <string>
 
 namespace nsp
 {
@@ -15,6 +14,25 @@ enum class Day: unsigned
     Friday,
     Saturday
 };
+
+enum class Month: unsigned
+{
+    January = 0,
+    February,
+    March,
+    April,
+    May,
+    June,
+    July,
+    August,
+    September,
+    October,
+    November,
+    December
+};
+
+Month stringToMonth(const std::string&);
+Day stringToDay(const std::string&);
 
 class Date
 {
@@ -40,4 +58,3 @@ public:
     }
 };
 }
-#endif //__DATE_H__

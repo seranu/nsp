@@ -22,7 +22,9 @@ enum class ShiftType : int
 enum class Grade
 {
     Regular,
-    Manager
+    Manager,    // has more duties(handle invoices, etc...)
+    Intern,     // starting out; requires trainig
+    Owner       // owner of the shop
 };
 
 using Penalty = unsigned int;
