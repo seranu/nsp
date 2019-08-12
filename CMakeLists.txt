@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 3.1)
 
+project(nsp)
+
+# Typically you don't care so much for a third party library's tests to be
+# run from your own project's code.
+set(JSON_BuildTests OFF CACHE INTERNAL "")
 # build third parties
 add_subdirectory(third-party)
-
-
-project(nsp)
 
 find_package(Boost)
 
@@ -14,10 +16,6 @@ set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-# Typically you don't care so much for a third party library's tests to be
-# run from your own project's code.
-set(JSON_BuildTests OFF CACHE INTERNAL "")
 
 
 set(SOURCES
@@ -31,6 +29,8 @@ set(SOURCES
 
 set(TEST_SOURCES
     "test/test_date.cpp")
+
+
 
 # build main
 add_executable(main "nsp.cpp" ${SOURCES})

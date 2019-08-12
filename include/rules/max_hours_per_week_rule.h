@@ -5,11 +5,17 @@
 namespace nsp {
 class MaxHoursPerWeekRule : public IRule {
 public:
-  MaxHoursPerWeekRule(int value) : m_value(value) {}
+  MaxHoursPerWeekRule(size_t employeeId, int value)
+      : m_employeeId(employeeId), m_value(value) {}
+  ~MaxHoursPerWeekRule() override {}
+
   RuleType type() const override { return RuleType::MaxHoursPerWeek; }
-  virtual bool satisfied(const Schedule &schedule) override;
+  bool satisfied(const Schedule &) override {}
+  size_t employeeId() const { return m_employeeId; }
+  int value() const { return m_value; }
 
 private:
-  unsigned short m_value;
+  size_t m_employeeId;
+  int m_value;
 };
 } // namespace nsp

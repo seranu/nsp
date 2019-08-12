@@ -24,15 +24,26 @@ void JsonConfiguration::parseConfigJson(const json& in) {
 
 void JsonConfiguration::parseEmployees(const json& in) {
   auto employeesJson = in["employees"];
-  for (auto employee : employeesJson) {
-    m_employees.emplace_back(employee["name"],
-                             employee["schedule"]["min_monthly_hours"],
-                             employee["schedule"]["max_monthly_hours"],
-                             stringToGrade(employee["grade"]));
-    auto rule = std::make_shared<VacationDaysRule>(
+  for (auto item : employeesJson) {
+    m_employees.emplace_back(
+        item["name"], item["schedule"]["min_monthly_hours"],
+        item["schedule"]["max_monthly_hours"], stringToGrade(item["grade"]));
+
+    std::cout << m_employees.back() << "\n";
+    m_rules.emplace_back(std::make_shared<VacationDaysRule>(
         static_cast<std::vector<unsigned short>>(
-            employee["schedule"]["vacation"]));
-    m_rules.emplace_back(rule);
+            item["schedule"]["vacation"])));
+    std::cout << "Added rule : " << m_rules.back() << "\n";
+    EmployeeHash h;
+    size_t empHash = h(m_employees.back());
+    m_rules.emplace_back(std::make_shared<MinHoursPerWeekRule>(
+        empHash, m_employees.back().minMonthlyHours()));
+    // https://stackoverflow.com/questions/11905648/overloading-with-inhertiance-and-polymorphism
+    std::cout << "Added rule : " << *(m_rules.back()) << "\n";
+
+    m_rules.emplace_back(std::make_shared<MaxHoursPerWeekRule>(
+        empHash, m_employees.back().maxMonthlyHours()));
+    std::cout << "Added rule : " << m_rules.back() << "\n";
   }
 }
 void JsonConfiguration::parseEmployee(const json& in) {}

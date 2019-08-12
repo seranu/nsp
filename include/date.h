@@ -31,9 +31,6 @@ enum class Month: unsigned
     December
 };
 
-Month stringToMonth(std::string);
-Day stringToDay(std::string);
-
 class Date
 {
 private:
