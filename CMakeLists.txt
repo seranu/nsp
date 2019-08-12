@@ -26,7 +26,8 @@ set(SOURCES
     "src/solver.cpp"
     "src/configuration_factory.cpp"
     "src/date.cpp"
-    "src/json_configuration.cpp")
+    "src/json_configuration.cpp"
+    "src/utils.cpp")
 
 set(TEST_SOURCES
     "test/test_date.cpp")

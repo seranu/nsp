@@ -2,8 +2,11 @@
 #include <date.h>
 #include <iconfiguration.h>
 #include <memory>
+#include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
+
+using json = nlohmann::json;
 
 namespace nsp
 {
@@ -18,5 +21,9 @@ public:
 private:
   std::string m_configurationFileName;
   void init() override;
+  void parseConfigJson(const json& in);
+  void parseEmployees(const json& in);
+  void parseEmployee(const json& in);
+  void parseGeneralRules(const json& in);
 };
 }

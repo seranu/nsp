@@ -27,7 +27,6 @@ public:
     Grade grade() const { return m_grade; }
 };
 
-
 struct EmployeeHash
 {
 std::size_t operator() (const Employee&);

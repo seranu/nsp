@@ -6,10 +6,13 @@ namespace nsp
 {
 
 class Employee;
-enum class RuleType
-{
-    HARD,
-    SOFT
+enum class RuleType {
+  MaxHoursPerWeek,
+  MinHoursPerWeek,
+  VacationDays,
+  ConsecutiveDays,
+  RoosterRequirement,
+  ShopClosed
 };
 
 enum class ShiftType : int

@@ -1,8 +1,8 @@
 #include "solution.h"
-#include "rule_engine.h"
-#include <cassert>
-#include <vector>
 #include <boost/functional/hash.hpp>
+#include <cassert>
+#include <rules/rule_engine.h>
+#include <vector>
 
 namespace nsp 
 {

@@ -31,8 +31,8 @@ enum class Month: unsigned
     December
 };
 
-Month stringToMonth(const std::string&);
-Day stringToDay(const std::string&);
+Month stringToMonth(std::string);
+Day stringToDay(std::string);
 
 class Date
 {

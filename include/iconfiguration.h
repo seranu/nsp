@@ -22,11 +22,10 @@ public:
   virtual ~IConfiguration() {}
 
 protected:
-  virtual void init() = 0;
-
-private:
   Month m_month;
   std::vector<Employee> m_employees;
   std::vector<std::shared_ptr<IRule>> m_rules;
+
+  virtual void init() = 0;
 };
 }
