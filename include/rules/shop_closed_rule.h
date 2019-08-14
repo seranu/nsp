@@ -11,6 +11,7 @@ public:
   RuleType type() const override { return RuleType::ShopClosed; }
   virtual bool satisfied(const Schedule &schedule) override;
   std::vector<unsigned short> value() const { return m_daysClosed; }
+  std::string print() const override;
 
 private:
   std::vector<unsigned short> m_daysClosed;

@@ -11,6 +11,7 @@ public:
   RuleType type() const override { return RuleType::RoosterRequirement; }
   virtual bool satisfied(const Schedule &schedule) override;
   std::pair<Day, int> value() const { return std::make_pair(m_day, m_value); }
+  std::string print() const override;
 
 private:
   Day m_day;

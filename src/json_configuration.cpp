@@ -33,7 +33,7 @@ void JsonConfiguration::parseEmployees(const json& in) {
     m_rules.emplace_back(std::make_shared<VacationDaysRule>(
         static_cast<std::vector<unsigned short>>(
             item["schedule"]["vacation"])));
-    std::cout << "Added rule : " << m_rules.back() << "\n";
+    std::cout << "Added rule : " << *(m_rules.back()) << "\n";
     EmployeeHash h;
     size_t empHash = h(m_employees.back());
     m_rules.emplace_back(std::make_shared<MinHoursPerWeekRule>(
@@ -43,7 +43,7 @@ void JsonConfiguration::parseEmployees(const json& in) {
 
     m_rules.emplace_back(std::make_shared<MaxHoursPerWeekRule>(
         empHash, m_employees.back().maxMonthlyHours()));
-    std::cout << "Added rule : " << m_rules.back() << "\n";
+    std::cout << "Added rule : " << *(m_rules.back()) << "\n";
   }
 }
 void JsonConfiguration::parseEmployee(const json& in) {}

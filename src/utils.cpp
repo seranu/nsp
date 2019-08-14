@@ -116,49 +116,10 @@ std::ostream &operator<<(std::ostream &str, const Employee &emp) {
   return str;
 }
 
-std::ostream &operator<<(std::ostream &os, const MinHoursPerWeekRule &rule) {
-  os << "Rule [ type = \"" << ruleTypeToString(rule.type())
-     << "\" employeeId = \"" << rule.employeeId() << "\" value = \""
-     << rule.value() << "\" ];";
+std::ostream &operator<<(std::ostream &os, const IRule &rule) {
+  os << rule.print();
   return os;
 }
 
-std::ostream &operator<<(std::ostream &os, const MaxHoursPerWeekRule &rule) {
-  os << "Rule [ type = \"" << ruleTypeToString(rule.type())
-     << "\" employeeId = \"" << rule.employeeId() << "\" value = \""
-     << rule.value() << "\" ];";
-  return os;
-}
 
-std::ostream &operator<<(std::ostream &os, const ConsecutiveDaysRule &rule) {
-  os << "Rule [ type = \"" << ruleTypeToString(rule.type()) << "\" value = \""
-     << rule.value() << "\" ];";
-  return os;
-}
-std::ostream &operator<<(std::ostream &os, const RoosterRequirementRule &rule) {
-  auto valuePair = rule.value();
-  os << "Rule [ type = \"" << ruleTypeToString(rule.type()) << "\" value = \""
-     << dayToString(valuePair.first) << ": " << valuePair.second << "\" ];";
-  return os;
-}
-
-std::ostream &operator<<(std::ostream &os, const VacationDaysRule &rule) {
-  os << "Rule [ type = \"" << ruleTypeToString(rule.type()) << "\" value = \""
-     << "{ ";
-  for (auto day : rule.value()) {
-    os << day << " ";
-  }
-  os << "} \" ]";
-  return os;
-}
-
-std::ostream &operator<<(std::ostream &os, const ShopClosedRule &rule) {
-  os << "Rule [ type = \"" << ruleTypeToString(rule.type()) << "\" value = \""
-     << "{ ";
-  for (auto day : rule.value()) {
-    os << day << " ";
-  }
-  os << "} \" ]";
-  return os;
-}
 } // namespace nsp

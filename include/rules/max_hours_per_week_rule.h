@@ -13,6 +13,7 @@ public:
   bool satisfied(const Schedule &) override {}
   size_t employeeId() const { return m_employeeId; }
   int value() const { return m_value; }
+  std::string print() const override;
 
 private:
   size_t m_employeeId;

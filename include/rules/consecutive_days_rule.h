@@ -9,6 +9,7 @@ public:
   RuleType type() const override { return RuleType::ConsecutiveDays; }
   virtual bool satisfied(const Schedule &schedule) override;
   unsigned short value() const { return m_value; }
+  std::string print() const override;
 
 private:
   unsigned short m_value;

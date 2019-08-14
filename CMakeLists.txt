@@ -25,7 +25,14 @@ set(SOURCES
     "src/configuration_factory.cpp"
     "src/date.cpp"
     "src/json_configuration.cpp"
-    "src/utils.cpp")
+    "src/utils.cpp"
+    "src/rules/consecutive_days_rule.cpp"
+    "src/rules/max_hours_per_week_rule.cpp"
+    "src/rules/min_hours_per_week_rule.cpp"
+    "src/rules/rooster_requirement_rule.cpp"
+    "src/rules/shop_closed_rule.cpp"
+    "src/rules/vacation_days_rule.cpp"
+    "src/rules/rule_engine.cpp")
 
 set(TEST_SOURCES
     "test/test_date.cpp")
