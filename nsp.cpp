@@ -1,8 +1,9 @@
+#include <iostream>
 #include "configuration_factory.h"
 #include "solution.h"
 #include "solver.h"
+#include "utils.h"
 
-#include <iostream>
 using namespace nsp;
 
 int main(int argc, char* argv[])
@@ -12,8 +13,8 @@ int main(int argc, char* argv[])
         return -1;
     }
     auto configuration =
-        ConfigurationFactory::create(ConfigurationType::JSON, argv[1]);
-
+        ConfigurationFactory::createFromFile(ConfigurationType::JSON, argv[1]);
+    std::cout << *configuration;
     //    Solver solver(ConfigurationFactory::create(ConfigurationType::JSON,
     //    argv[1])); solver.solve(); auto best = solver.bestSoFar(); if (best) {
     ////        cout << *best;

@@ -32,7 +32,8 @@ RuleType stringToRuleType(std::string ruleStr) {
       {"maxhoursperweek", RuleType::MaxHoursPerWeek},
       {"vacationdays", RuleType::VacationDays},
       {"consecutivedays", RuleType::ConsecutiveDays},
-      {"shopclosed", RuleType::ShopClosed}};
+      {"shopclosed", RuleType::ShopClosed},
+      {"roosterrequirement", RuleType::RoosterRequirement}};
   std::transform(ruleStr.begin(), ruleStr.end(), ruleStr.begin(), ::tolower);
   assert(s_rules.find(ruleStr) != s_rules.end() && "Unknown Rule");
   return s_rules[ruleStr];
@@ -44,7 +45,8 @@ std::string ruleTypeToString(RuleType rule) {
       {RuleType::MaxHoursPerWeek, "MaxHoursPerWeek"},
       {RuleType::VacationDays, "VacationDays"},
       {RuleType::ConsecutiveDays, "ConsecutiveDays"},
-      {RuleType::ShopClosed, "ShopClosed"}};
+      {RuleType::ShopClosed, "ShopClosed"},
+      {RuleType::RoosterRequirement, "RoosterRequirement"}};
   assert(s_ruleStrings.find(rule) != s_ruleStrings.end() && "Unknown Rule");
   return s_ruleStrings[rule];
 }
@@ -111,8 +113,8 @@ std::ostream &operator<<(std::ostream &str, const Employee &emp) {
   EmployeeHash h;
   str << "Employee: [ name = \"" << emp.name() << "\" employeeId = \"" << h(emp)
       << "\" grade = \"" << gradeToString(emp.grade())
-      << "\" min_monthly_hours = \"" << emp.minMonthlyHours()
-      << "\" max_monthly_hours = \"" << emp.maxMonthlyHours() << "\" ]\n";
+      << "\" min_weekly_hours = \"" << emp.minWeeklyHours()
+      << "\" max_weekly_hours = \"" << emp.maxWeeklyHours() << "\" ]\n";
   return str;
 }
 
@@ -121,5 +123,19 @@ std::ostream &operator<<(std::ostream &os, const IRule &rule) {
   return os;
 }
 
+std::ostream &operator<<(std::ostream &os, const IConfiguration &config) {
+  os << "\n********** Configuration **************\n";
+  os << "Month: " << monthToString(config.month()) << "\n";
+  os << "Employees: \n";
+  for (const auto &employee : config.employees()) {
+    os << "\t" << employee << "\n";
+  }
+  os << "Rules: \n";
+  for (const auto &rule : config.rules()) {
+    os << "\t" << *rule << "\n";
+  }
+  os << "***************************************\n";
+  return os;
+}
 
 } // namespace nsp

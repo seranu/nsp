@@ -4,8 +4,8 @@
         {
             "name" : "Oana",
             "schedule" : {
-                "min_monthly_hours" : 35,
-                "max_monthly_hours" : 45,
+                "min_weekly_hours" : 35,
+                "max_weekly_hours" : 45,
                 "vacation" : [ 15, 25 ]
             },
             "grade" : "manager"
@@ -13,8 +13,8 @@
         {
             "name": "Alexandra",
             "schedule": {
-                "min_monthly_hours" : 35,
-                "max_monthly_hours" : 45,
+                "min_weekly_hours" : 35,
+                "max_weekly_hours" : 45,
                 "vacation" : [ 1, 13, 14 ]
             },
             "grade": "regular"
@@ -22,8 +22,8 @@
         {
             "name": "Mailen",
             "schedule": {
-                "min_monthly_hours" : 35,
-                "max_monthly_hours" : 45,
+                "min_weekly_hours" : 35,
+                "max_weekly_hours" : 45,
                 "vacation" : [ 3, 22, 30 ]
             },
             "grade": "regular"
@@ -36,13 +36,13 @@
             "value" : 4,
             "penalty" : "TODO: set penalty"
         },
-		{ "type": "rooster_requirement", "value" : {"Sunday": 210},    "penalty": "TODO: set penalty" },
-		{ "type": "rooster_requirement", "value" : {"Monday": 250},    "penalty": "TODO: set penalty" },
-		{ "type": "rooster_requirement", "value" : {"Tuesday": 250},   "penalty": "TODO: set penalty" },
-		{ "type": "rooster_requirement", "value" : {"Wednesday": 210}, "penalty": "TODO: set penalty" },
-		{ "type": "rooster_requirement", "value" : {"Thursday": 210},  "penalty": "TODO: set penalty" },
-		{ "type": "rooster_requirement", "value" : {"Friday": 250},    "penalty": "TODO: set penalty" },
-		{ "type": "rooster_requirement", "value" : {"Saturday": 210},  "penalty": "TODO: set penalty" },
+		{ "type": "rooster_requirement", "day": "Sunday",    "value" : 210, "penalty": "TODO: set penalty" },
+		{ "type": "rooster_requirement", "day": "Monday",    "value" : 250, "penalty": "TODO: set penalty" },
+		{ "type": "rooster_requirement", "day": "Tuesday",   "value" : 250, "penalty": "TODO: set penalty" },
+		{ "type": "rooster_requirement", "day": "Wednesday", "value" : 210, "penalty": "TODO: set penalty" },
+		{ "type": "rooster_requirement", "day": "Thursday",  "value" : 210, "penalty": "TODO: set penalty" },
+		{ "type": "rooster_requirement", "day": "Friday",    "value" : 250, "penalty": "TODO: set penalty" },
+		{ "type": "rooster_requirement", "day": "Saturday",  "value" : 210, "penalty": "TODO: set penalty" },
         {
             "type": "shop_closed",
             "value": [ 27 ],
