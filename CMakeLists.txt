@@ -34,7 +34,10 @@ set(SOURCES
     "src/rules/rooster_requirement_rule.cpp"
     "src/rules/shop_closed_rule.cpp"
     "src/rules/vacation_days_rule.cpp"
-    "src/rules/rule_engine.cpp")
+    "src/rules/rule_engine.cpp"
+    "src/schedule.cpp"
+    "src/printers.cpp"
+    )
 
 set(TEST_SOURCES
     "test/test_date.cpp"

@@ -109,33 +109,18 @@ std::string dayToString(Day day) {
   return s_dayStrings[day];
 }
 
-std::ostream &operator<<(std::ostream &str, const Employee &emp) {
-  EmployeeHash h;
-  str << "Employee: [ name = \"" << emp.name() << "\" employeeId = \"" << h(emp)
-      << "\" grade = \"" << gradeToString(emp.grade())
-      << "\" min_weekly_hours = \"" << emp.minWeeklyHours()
-      << "\" max_weekly_hours = \"" << emp.maxWeeklyHours() << "\" ]\n";
-  return str;
+int daysInMonth(Month m) {
+  static std::unordered_map<Month, int> s_days = {
+      {Month::January, 31},   {Month::February, 28},  // TODO: an bisect
+      {Month::March, 31},     {Month::April, 30},    {Month::May, 31},
+      {Month::June, 30},      {Month::July, 31},     {Month::August, 31},
+      {Month::September, 30}, {Month::October, 31},  {Month::November, 30},
+      {Month::December, 31},
+  };
+  assert(s_days.find(m) != s_days.end() && "Unknown month");
+  return s_days[m];
 }
 
-std::ostream &operator<<(std::ostream &os, const IRule &rule) {
-  os << rule.print();
-  return os;
-}
 
-std::ostream &operator<<(std::ostream &os, const IConfiguration &config) {
-  os << "\n********** Configuration **************\n";
-  os << "Month: " << monthToString(config.month()) << "\n";
-  os << "Employees: \n";
-  for (const auto &employee : config.employees()) {
-    os << "\t" << employee << "\n";
-  }
-  os << "Rules: \n";
-  for (const auto &rule : config.rules()) {
-    os << "\t" << *rule << "\n";
-  }
-  os << "***************************************\n";
-  return os;
-}
 
 } // namespace nsp

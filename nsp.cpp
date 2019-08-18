@@ -1,9 +1,9 @@
+#include <printers.h>
 #include <iostream>
 #include "configuration_factory.h"
 #include "solution.h"
 #include "solver.h"
 #include "utils.h"
-
 using namespace nsp;
 
 int main(int argc, char* argv[])

@@ -31,6 +31,10 @@ enum class Month: unsigned
     December
 };
 
+int currentYear();
+Day dayOfWeek(int day, int month, int year);
+Day dayOfWeek(int day, Month month, int year);
+Day nextDay(Day);
 class Date
 {
 private:
@@ -48,10 +52,6 @@ public:
         assert(m_year >= 0);
     }
 
-    Day dayOfWeek() const {
-        // awsome formula ripped of wikipedia
-        auto d = m_day, m = m_month, y = m_year;
-        return static_cast<Day>((d+=m<3?y--:y-2,23*m/9+d+4+y/4-y/100+y/400)%7);
-    }
+    Day dayOfWeek() const { return nsp::dayOfWeek(m_day, m_month, m_year); }
 };
 }

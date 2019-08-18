@@ -31,6 +31,6 @@ enum class Grade
 };
 
 using Penalty = unsigned int;
-using ShiftPattern = std::vector<ShiftType>;
-using Schedule = std::map<Employee, ShiftPattern>;
+// using ShiftPattern = std::vector<ShiftType>;
+// using Schedule = std::map<Employee, ShiftPattern>;
 }

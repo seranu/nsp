@@ -1,5 +1,6 @@
 #pragma once
 
+#include <schedule.h>
 #include "nsp_types.h"
 
 namespace nsp
