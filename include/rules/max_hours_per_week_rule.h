@@ -10,7 +10,7 @@ public:
   ~MaxHoursPerWeekRule() override {}
 
   RuleType type() const override { return RuleType::MaxHoursPerWeek; }
-  bool satisfied(const Schedule &) override {}
+  bool satisfied(const Schedule &) override;
   size_t employeeId() const { return m_employeeId; }
   int value() const { return m_value; }
   std::string print() const override;

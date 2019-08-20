@@ -4,6 +4,8 @@
 #include <utils.h>
 
 namespace nsp {
+bool RoosterRequirementRule::satisfied(const Schedule &schedule) {}
+
 std::string RoosterRequirementRule::print() const {
   std::stringstream os;
   os << "Rule [ type = \"" << ruleTypeToString(RuleType::RoosterRequirement)

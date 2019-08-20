@@ -4,6 +4,8 @@
 #include <utils.h>
 
 namespace nsp {
+bool ConsecutiveDaysRule::satisfied(const Schedule &schedule) {}
+
 std::string ConsecutiveDaysRule::print() const {
   std::stringstream os;
   os << "Rule [ type = \"" << ruleTypeToString(RuleType::ConsecutiveDays)

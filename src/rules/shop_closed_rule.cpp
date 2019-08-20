@@ -4,6 +4,8 @@
 #include <utils.h>
 
 namespace nsp {
+bool ShopClosedRule::satisfied(const Schedule &schedule) {}
+
 std::string ShopClosedRule::print() const {
   std::stringstream os;
   os << "Rule [ type = \"" << ruleTypeToString(RuleType::ShopClosed)

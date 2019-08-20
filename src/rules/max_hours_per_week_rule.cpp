@@ -4,6 +4,8 @@
 #include <utils.h>
 
 namespace nsp {
+bool MaxHoursPerWeekRule::satisfied(const Schedule &) {}
+
 std::string MaxHoursPerWeekRule::print() const {
   std::stringstream os;
   os << "Rule [ type = \"" << ruleTypeToString(RuleType::MaxHoursPerWeek)

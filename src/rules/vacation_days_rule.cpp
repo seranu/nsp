@@ -4,6 +4,8 @@
 #include <utils.h>
 
 namespace nsp {
+bool VacationDaysRule::satisfied(const Schedule &) {}
+
 std::string VacationDaysRule::print() const {
   std::stringstream os;
   os << "Rule [ type = \"" << ruleTypeToString(RuleType::VacationDays)

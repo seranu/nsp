@@ -9,7 +9,7 @@ public:
   VacationDaysRule(std::vector<unsigned short> values)
       : m_vacationDays(move(values)) {}
   RuleType type() const override { return RuleType::VacationDays; }
-  virtual bool satisfied(const Schedule &) override {}
+  bool satisfied(const Schedule &) override;
   std::vector<unsigned short> value() const { return m_vacationDays; }
   std::string print() const override;
 

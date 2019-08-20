@@ -41,7 +41,9 @@ set(SOURCES
 
 set(TEST_SOURCES
     "test/test_date.cpp"
-    "test/test_configuration.cpp")
+    "test/test_configuration.cpp"
+    "test/test_schedule.cpp"
+    )
 
   set(TO_LINK_LIBRARIES 
     nlohmann_json::nlohmann_json 

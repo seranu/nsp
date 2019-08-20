@@ -8,10 +8,10 @@
 
 namespace nsp {
 
+using day_agenda_t = std::unordered_map<Employee, ShiftType, EmployeeHash>;
 using shift_t =
     std::unordered_map<Employee, std::vector<ShiftType>, EmployeeHash>;
-using agenda_t =
-    std::vector<std::unordered_map<Employee, ShiftType, EmployeeHash>>;
+using agenda_t = std::vector<day_agenda_t>;
 
 class Schedule {
  private:
@@ -26,7 +26,9 @@ class Schedule {
   void moveShift(const Employee&, int, int);
   agenda_t agenda() const { return m_agenda; }
   shift_t shifts() const { return m_shifts; }
-  //  void addEmployee(const Employee&);
+  // TODO: how to return shift if there is none for employee ?
+  const std::vector<ShiftType> &shifts(const Employee &emp) const;
+  const day_agenda_t& agenda(int day) const { return m_agenda[day]; }
 };
 std::ostream &operator<<(std::ostream &, const Schedule &);
 }  // namespace nsp
