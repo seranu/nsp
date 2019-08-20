@@ -4,7 +4,7 @@
 #include <utils.h>
 
 namespace nsp {
-bool VacationDaysRule::satisfied(const Schedule &) {}
+int VacationDaysRule::apply(const Schedule &) {}
 
 std::string VacationDaysRule::print() const {
   std::stringstream os;

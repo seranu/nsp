@@ -1,6 +1,6 @@
 #include <configuration_factory.h>
 #include <gtest/gtest.h>
-#include <rules/rule_factory.h>
+#include <rules/include_all_rules.h>
 
 using namespace nsp;
 
@@ -30,7 +30,11 @@ TEST(ConfigurationTest, Employee) {
         [
           {
             "name" : "Oana",
-            "schedule" : { "min_weekly_hours" : 35, "max_weekly_hours": 45 },
+            "rules" : [
+              { "type": "min_weekly_hours", "value": 35, "penalty": 150 },
+              { "type": "max_weekly_hours", "value": 45, "penalty": 170 },
+              { "type": "vacation", "value": [1, 2, 5], "penalty": 50 }
+            ],
             "grade" : "manager"
           }
         ],
@@ -42,14 +46,29 @@ TEST(ConfigurationTest, Employee) {
 
   ASSERT_EQ(employee.name(), "Oana");
   ASSERT_EQ(employee.grade(), Grade::Manager);
-  ASSERT_EQ(employee.minWeeklyHours(), 35);
-  ASSERT_EQ(employee.maxWeeklyHours(), 45);
+  const auto& rules = m_configuration->rules();
+  ASSERT_EQ(rules.size(), 3);
+  for (auto& rule : rules) {
+    if (rule->type() == RuleType::MinHoursPerWeek) {
+      auto mhpwRule = dynamic_cast<const MinHoursPerWeekRule*>(rule.get());
+      ASSERT_EQ(mhpwRule->value(), 35);
+      ASSERT_EQ(mhpwRule->penalty(), 150);
+    } else if (rule->type() == RuleType::MaxHoursPerWeek) {
+      auto mhpwRule = dynamic_cast<const MaxHoursPerWeekRule*>(rule.get());
+      ASSERT_EQ(mhpwRule->value(), 45);
+      ASSERT_EQ(mhpwRule->penalty(), 170);
+    } else if (rule->type() == RuleType::VacationDays) {
+      auto vdRule = dynamic_cast<const VacationDaysRule*>(rule.get());
+      ASSERT_EQ(vdRule->value(), std::vector<unsigned short>({1, 2, 5}));
+      ASSERT_EQ(vdRule->penalty(), 50);
+    }
+  }
 }
 
 TEST(ConfigurationTest, TestConsecutiveDaysRule) {
   auto m_configuration = ConfigurationFactory::createFromString(
       ConfigurationType::JSON,
-      R"({ "month": "august", "employees":[], "general_rules": [ { "type": "consecutive_working_days", "value": 5, "penalty": "" } ] })");
+      R"({ "month": "august", "employees":[], "general_rules": [ { "type": "consecutive_working_days", "value": 5, "penalty": 100 } ] })");
   const auto& rules = m_configuration->rules();
   ASSERT_EQ(rules.size(), 1);
   const auto& rule = rules[0];
@@ -57,13 +76,14 @@ TEST(ConfigurationTest, TestConsecutiveDaysRule) {
   auto cdRule = dynamic_cast<const ConsecutiveDaysRule*>(rule.get());
   ASSERT_NE(cdRule, nullptr);
   ASSERT_EQ(cdRule->value(), 5);
+  ASSERT_EQ(cdRule->penalty(), 100);
 }
 
 TEST(ConfigurationTest, TestRoosterRequirementRule) {
   auto m_configuration = ConfigurationFactory::createFromString(
       ConfigurationType::JSON,
       R"({ "month": "august", "employees":[], "general_rules": [ { "type": "rooster_requirement",
-"day": "monday", "value": 200, "penalty": "" } ] })");
+"day": "monday", "value": 200, "penalty": 100 } ] })");
   const auto& rules = m_configuration->rules();
   ASSERT_EQ(rules.size(), 1);
   ASSERT_EQ(rules[0]->type(), RuleType::RoosterRequirement);
@@ -72,97 +92,19 @@ TEST(ConfigurationTest, TestRoosterRequirementRule) {
   const auto& [day, value] = rrRule->value();
   ASSERT_EQ(day, Day::Monday);
   ASSERT_EQ(value, 200);
+  ASSERT_EQ(rrRule->penalty(), 100);
 }
 
 TEST(ConfigurationTest, TestShopClosedRule) {
   auto m_configuration = ConfigurationFactory::createFromString(
       ConfigurationType::JSON,
       R"({ "month": "august", "employees":[], "general_rules": [ { "type": "shop_closed",
-"value": [ 3, 21 ], "penalty": "" } ] })");
+"value": [ 3, 21 ], "penalty": 100 } ] })");
   const auto& rules = m_configuration->rules();
   ASSERT_EQ(rules.size(), 1);
   ASSERT_EQ(rules[0]->type(), RuleType::ShopClosed);
   const auto* scRule = dynamic_cast<const ShopClosedRule*>(rules[0].get());
   ASSERT_NE(scRule, nullptr);
-}
-
-TEST(ConfigurationTest, TestMinHoursPerWeekRules) {
-  auto m_configuration =
-      ConfigurationFactory::createFromString(ConfigurationType::JSON, R"({ 
-        "month": "august",
-        "employees" : 
-        [
-          {
-            "name" : "Oana",
-            "schedule" : { "min_weekly_hours" : 35, "max_weekly_hours": 45 },
-            "grade" : "manager"
-          }
-        ],
-        "general_rules" : [] })");
-  const auto& rules = m_configuration->rules();
-  ASSERT_EQ(rules.size(), 2);
-  bool found = false;
-  for (auto& rule : rules) {
-    if (rule->type() == RuleType::MinHoursPerWeek) {
-      auto mhpwRule = dynamic_cast<const MinHoursPerWeekRule*>(rule.get());
-      ASSERT_NE(mhpwRule, nullptr);
-      ASSERT_EQ(mhpwRule->value(), 35);
-      found = true;
-    }
-  }
-  ASSERT_TRUE(found);
-}
-
-TEST(ConfigurationTest, TestMaxHoursPerWeekRules) {
-  auto m_configuration =
-      ConfigurationFactory::createFromString(ConfigurationType::JSON, R"({ 
-        "month": "august",
-        "employees" : 
-        [
-          {
-            "name" : "Oana",
-            "schedule" : { "min_weekly_hours" : 35, "max_weekly_hours": 45 },
-            "grade" : "manager"
-          }
-        ],
-        "general_rules" : [] })");
-  const auto& rules = m_configuration->rules();
-  ASSERT_EQ(rules.size(), 2);
-  bool found = false;
-  for (auto& rule : rules) {
-    if (rule->type() == RuleType::MaxHoursPerWeek) {
-      auto mhpwRule = dynamic_cast<const MaxHoursPerWeekRule*>(rule.get());
-      ASSERT_NE(mhpwRule, nullptr);
-      ASSERT_EQ(mhpwRule->value(), 45);
-      found = true;
-    }
-  }
-  ASSERT_TRUE(found);
-}
-
-TEST(ConfigurationTest, TestVacationDays) {
-  auto m_configuration =
-      ConfigurationFactory::createFromString(ConfigurationType::JSON, R"({ 
-        "month": "august",
-        "employees" : 
-        [
-          {
-            "name" : "Oana",
-            "schedule" : { "min_weekly_hours" : 35, "max_weekly_hours": 45, "vacation": [1, 21] },
-            "grade" : "manager"
-          }
-        ],
-        "general_rules" : [] })");
-  const auto& rules = m_configuration->rules();
-  ASSERT_EQ(rules.size(), 3);
-  bool found = false;
-  for (auto& rule : rules) {
-    if (rule->type() == RuleType::VacationDays) {
-      auto vdRule = dynamic_cast<const VacationDaysRule*>(rule.get());
-      ASSERT_NE(vdRule, nullptr);
-      ASSERT_EQ(vdRule->value(), std::vector<unsigned short>({1, 21}));
-      found = true;
-    }
-  }
-  ASSERT_TRUE(found);
+  ASSERT_EQ(scRule->value(), std::vector<unsigned short>({3, 21}));
+  ASSERT_EQ(scRule->penalty(), 100);
 }

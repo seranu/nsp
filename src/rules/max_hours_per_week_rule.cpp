@@ -4,7 +4,27 @@
 #include <utils.h>
 
 namespace nsp {
-bool MaxHoursPerWeekRule::satisfied(const Schedule &) {}
+int MaxHoursPerWeekRule::apply(const Schedule& schedule) {
+  int totalPenalty = 0;
+  int hoursThisWeek = 0;
+  for (auto const& [emp, shift] : schedule.shifts()) {
+    if (emp.id() == m_employeeId) {
+      for (size_t i = 0; i < shift.size(); i++) {
+        if (i % 7 == 0) {
+          if (hoursThisWeek > m_value) {
+            totalPenalty += m_penalty;
+          }
+          hoursThisWeek = 0;
+        }
+        hoursThisWeek += static_cast<int>(shift[i]);
+      }
+      if (hoursThisWeek > m_value) {
+        totalPenalty += m_penalty;
+      }
+    }
+  }
+  return totalPenalty;
+}
 
 std::string MaxHoursPerWeekRule::print() const {
   std::stringstream os;

@@ -36,6 +36,7 @@ set(SOURCES
     "src/rules/vacation_days_rule.cpp"
     "src/rules/rule_engine.cpp"
     "src/schedule.cpp"
+    "src/solution_factory.cpp"
     "src/printers.cpp"
     )
 

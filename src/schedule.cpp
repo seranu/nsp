@@ -1,4 +1,5 @@
 #include <schedule.h>
+#include <algorithm>
 
 namespace nsp {
 
@@ -37,9 +38,29 @@ const std::vector<ShiftType>& Schedule::shifts(const Employee& emp) const {
   return s_empyShift;
 }
 
-// void Schedule::addEmployee(const Employee&);
 std::ostream& operator<<(std::ostream& os, const Schedule& schedule) {
-  // TODO: Implement
-  return os;
+  auto agenda = schedule.agenda();
+  const auto month = schedule.month();
+  auto day = dayOfWeek(1, month, currentYear());
+  os << "******************** schedule ********************\n";
+  for (size_t i = 0; i < agenda.size(); i++) {
+    os << dayToString(day) << " : " << i + 1 << " " << monthToString(month)
+       << ": ";
+    std::vector<Employee> sortedEmployees;
+    for (auto const& [emp, shift] : agenda[i]) {
+      if (shift != ShiftType::OFF) {
+        sortedEmployees.push_back(emp);
+      }
+    }
+    std::sort(sortedEmployees.begin(), sortedEmployees.end());
+    for (const auto& e : sortedEmployees) {
+      os << e.name() << "(" << e.id() << ", " << gradeToString(e.grade())
+         << ") ";
+    }
+    os << "\n";
+    day = nextDay(day);
+ }
+ os << "**************************************************\n";
+ return os;
 }
 }  // namespace nsp

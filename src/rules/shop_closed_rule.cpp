@@ -4,7 +4,7 @@
 #include <utils.h>
 
 namespace nsp {
-bool ShopClosedRule::satisfied(const Schedule &schedule) {}
+int ShopClosedRule::apply(const Schedule &schedule) {}
 
 std::string ShopClosedRule::print() const {
   std::stringstream os;

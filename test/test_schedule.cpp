@@ -5,7 +5,7 @@ using namespace nsp;
 
 class ScheduleTest : public ::testing::Test {
  public:
-  ScheduleTest() : emp("Tester", 20, 30, Grade::Regular), sch(Month::August) {}
+  ScheduleTest() : emp("Tester", Grade::Regular), sch(Month::August) {}
 
  protected:
   Employee emp;

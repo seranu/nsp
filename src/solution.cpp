@@ -17,5 +17,8 @@ std::size_t SolutionHash::operator()(const Solution& s)
     return seed;
 }
 
-std::ostream &operator<<(std::ostream &, const Solution &) {}
+std::ostream &operator<<(std::ostream &os, const Solution &s) {
+  os << s.schedule();
+  return os;
 }
+}  // namespace nsp

@@ -15,20 +15,9 @@ enum class RuleType {
   ShopClosed
 };
 
-enum class ShiftType : int
-{
-    NORMAL = 10,
-    SHORT = 8,
-    OFF = 0
-};
+enum class ShiftType : int { NORMAL = 10, SHORT = 8, OFF = 0 };
 
-enum class Grade
-{
-    Regular,
-    Manager,    // has more duties(handle invoices, etc...)
-    Intern,     // starting out; requires trainig
-    Owner       // owner of the shop
-};
+enum class Grade : unsigned int { Regular = 0, Manager, Intern, Owner };
 
 using Penalty = unsigned int;
 // using ShiftPattern = std::vector<ShiftType>;

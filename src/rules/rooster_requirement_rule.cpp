@@ -4,7 +4,7 @@
 #include <utils.h>
 
 namespace nsp {
-bool RoosterRequirementRule::satisfied(const Schedule &schedule) {}
+int RoosterRequirementRule::apply(const Schedule &schedule) {}
 
 std::string RoosterRequirementRule::print() const {
   std::stringstream os;
