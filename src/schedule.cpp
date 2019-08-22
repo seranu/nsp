@@ -3,6 +3,11 @@
 
 namespace nsp {
 
+const std::vector<ShiftType>& Schedule::emptyShift() const {
+  static std::vector<ShiftType> s_empyShift;
+  return s_empyShift;
+}
+
 void Schedule::addShift(const Employee& employee, int day,
                         ShiftType shiftType) {
   assert(day < m_numDays);
@@ -30,12 +35,20 @@ void Schedule::moveShift(const Employee& employee, int from, int to) {
 }
 
 const std::vector<ShiftType>& Schedule::shifts(const Employee& emp) const {
-  static std::vector<ShiftType> s_empyShift;
   auto it = m_shifts.find(emp);
   if (it != m_shifts.end()) {
     return it->second;
   }
-  return s_empyShift;
+  return emptyShift();
+}
+
+const std::vector<ShiftType>& Schedule::shifts(const size_t employeeId) const {
+  for (auto const& [emp, shift] : m_shifts) {
+    if (emp.id() == employeeId) {
+      return shift;
+    }
+  }
+  return emptyShift();
 }
 
 std::ostream& operator<<(std::ostream& os, const Schedule& schedule) {

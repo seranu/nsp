@@ -1,10 +1,10 @@
-#include <rules/shop_closed_rule.h>
+#include "rules/shop_closed_rule.h"
 #include <sstream>
 #include <string>
-#include <utils.h>
+#include "utils.h"
 
 namespace nsp {
-int ShopClosedRule::apply(const Schedule &schedule) {}
+int ShopClosedRule::apply(const Schedule &) { return 0; }
 
 std::string ShopClosedRule::print() const {
   std::stringstream os;
