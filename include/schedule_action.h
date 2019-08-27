@@ -18,5 +18,14 @@ class ScheduleAction {
   static ScheduleAction createAddAction(const Employee&, int, ShiftType);
   static ScheduleAction createDeleteAction(const Employee&, int);
   void execute(Schedule& sch) const;
+  const Employee& target() const { return m_target; }
+  ScheduleActionType type() const { return m_actionType; }
+  int day() const { return m_day; }
+  ShiftType shiftType() const { return m_shiftType; }
+  std::ostream& print(std::ostream& out) const;
 };
+
+std::string scheduleActionTypeToString(ScheduleActionType);
+
+std::ostream& operator<<(std::ostream& out, const nsp::ScheduleAction& act);
 }  // namespace nsp

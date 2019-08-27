@@ -1,7 +1,8 @@
-#include <rules/max_hours_per_week_rule.h>
+#include "rules/max_hours_per_week_rule.h"
 #include <sstream>
 #include <string>
-#include <utils.h>
+#include "log.h"
+#include "utils.h"
 
 namespace nsp {
 
@@ -14,6 +15,12 @@ void MaxHoursPerWeekRule::search(
       for (size_t i = 0; i < shift.size(); i++) {
         if (i != 0 && i % 7 == 0) {
           if (hoursThisWeek > m_value) {
+            //            LOG_DEBUG(
+            //                "Employee %s has more than %d hours(%d) to work in
+            //                week "
+            //                "%zu-%zu",
+            //                emp.name().c_str(), m_value, hoursThisWeek, i - 7,
+            //                i);
             onFail(emp, i, i - 7, hoursThisWeek);
           }
           hoursThisWeek = 0;
@@ -22,6 +29,11 @@ void MaxHoursPerWeekRule::search(
       }
       if (hoursThisWeek > m_value) {
         auto days = daysInMonth(schedule.month());
+        //        LOG_DEBUG(
+        //            "Employee %s has more than %d hours(%d) to work in week
+        //            %zu-%zu", emp.name().c_str(), m_value, hoursThisWeek, days
+        //            - 7, days);
+
         onFail(emp, days - 1, days - 8, hoursThisWeek);
       }
     }

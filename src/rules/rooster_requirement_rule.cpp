@@ -1,7 +1,8 @@
-#include <rules/rooster_requirement_rule.h>
+#include "rules/rooster_requirement_rule.h"
 #include <sstream>
 #include <string>
-#include <utils.h>
+#include "log.h"
+#include "utils.h"
 
 namespace nsp {
 
@@ -20,6 +21,9 @@ void RoosterRequirementRule::search(
       score += roosterScore(emp.grade());
     }
     if (score < m_value) {
+      //      LOG_DEBUG("Rule fails on day %d with score %d(expected %d)", i,
+      //      score,
+      //                m_value);
       onFail(i, score);
     }
     i += 7;

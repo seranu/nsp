@@ -2,6 +2,7 @@
 #include <sstream>
 #include <string>
 #include <unordered_map>
+#include "log.h"
 #include "utils.h"
 
 namespace nsp {
@@ -17,6 +18,9 @@ void ConsecutiveDaysRule::search(
       } else {
         seen[emp]++;
         if (seen[emp] > 3) {
+          //          LOG_DEBUG("emp : %s has more than 3 consecutive days on
+          //          %d",
+          //                    emp.name().c_str(), i);
           onFail(emp, i, shift);
         }
       }

@@ -28,9 +28,8 @@ int roosterScore(Grade g) {
 }
 
 std::ostream &operator<<(std::ostream &str, const Employee &emp) {
-  EmployeeHash h;
-  str << "Employee: [ name = \"" << emp.name() << "\" employeeId = \"" << h(emp)
-      << "\" grade = \"" << gradeToString(emp.grade()) << "\" ]\n";
+  str << "Employee: [ name = \"" << emp.name() << "\" grade = \""
+      << gradeToString(emp.grade()) << "\" ]";
   return str;
 }
 }  // namespace nsp

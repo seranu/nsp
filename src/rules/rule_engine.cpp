@@ -1,5 +1,6 @@
 #include "rules/rule_engine.h"
 #include "iconfiguration.h"
+#include "rules/include_all_rules.h"
 #include "solution.h"
 
 namespace nsp {
@@ -29,6 +30,21 @@ std::vector<ScheduleAction> RuleEngine::suggest(const Solution &sol) const {
 bool RuleEngine::valid(const Solution &) const {
   // TODO: implement
   return true;
+}
+
+const std::unordered_map<Day, int> &RuleEngine::roosterScores() const {
+  if (m_rooterScores.empty()) {
+    for (const auto &rule : m_rules) {
+      if (rule->type() == RuleType::RoosterRequirement) {
+        const auto *rrRule =
+            dynamic_cast<const RoosterRequirementRule *>(rule.get());
+        assert(rrRule);
+        const auto &[day, value] = rrRule->value();
+        m_rooterScores[day] = value;
+      }
+    }
+  }
+  return m_rooterScores;
 }
 
 } // namespace nsp

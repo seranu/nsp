@@ -1,7 +1,8 @@
-#include <rules/vacation_days_rule.h>
+#include "rules/vacation_days_rule.h"
 #include <sstream>
 #include <string>
-#include <utils.h>
+#include "log.h"
+#include "utils.h"
 
 namespace nsp {
 
@@ -11,6 +12,8 @@ void VacationDaysRule::search(
   for (auto i : m_vacationDays) {
     for (auto const &[emp, shift] : schedule.agenda(i - 1)) {
       if (emp.id() == m_employeeId && shift != ShiftType::OFF) {
+        //        LOG_DEBUG("Employee %s should have a day off on %d!!",
+        //                  emp.name().c_str(), i);
         onFail(emp, i - 1);
       }
     }

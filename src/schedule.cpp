@@ -1,6 +1,8 @@
 #include "schedule.h"
 #include <algorithm>
 #include <boost/functional/hash.hpp>
+#include <iomanip>
+#include "log.h"
 
 namespace nsp {
 
@@ -19,6 +21,8 @@ const std::vector<ShiftType>& Schedule::emptyShift() const {
 
 void Schedule::addShift(const Employee& employee, int day,
                         ShiftType shiftType) {
+  LOG_DEBUG("ADD %s : %d - %s", employee.name().c_str(), day + 1,
+            shiftTypeToString(shiftType).c_str());
   assert(day < m_numDays);
   m_agenda[day][employee] = shiftType;
   if (m_shifts.find(employee) == m_shifts.end()) {
@@ -28,12 +32,16 @@ void Schedule::addShift(const Employee& employee, int day,
 }
 
 void Schedule::deleteShift(const Employee& employee, int day) {
+  LOG_DEBUG("DELETE %s : %d", employee.name().c_str(), day + 1);
   assert(day < m_numDays);
   const auto& dayAgenda = m_agenda[day];
   const auto it = dayAgenda.find(employee);
-  assert(it != dayAgenda.end());
-  m_agenda[day].erase(it);
-  m_shifts[employee][day] = ShiftType::OFF;
+  if (it != dayAgenda.end()) {
+    m_agenda[day].erase(it);
+    m_shifts[employee][day] = ShiftType::OFF;
+  } else {
+    LOG_DEBUG("%s has no shift on %d", employee.name().c_str(), day);
+  }
 }
 
 void Schedule::moveShift(const Employee& employee, int from, int to) {
@@ -73,8 +81,8 @@ std::ostream& operator<<(std::ostream& os, const Schedule& schedule) {
   auto day = dayOfWeek(1, month, currentYear());
   os << "******************** schedule ********************\n";
   for (size_t i = 0; i < agenda.size(); i++) {
-    os << dayToString(day) << " : " << i + 1 << " " << monthToString(month)
-       << ": ";
+    os << std::left << std::setw(20) << dayToString(day) << " : " << i + 1
+       << " " << monthToString(month) << ": " << std::right << std::setw(10);
     std::vector<Employee> sortedEmployees;
     for (auto const& [emp, shift] : agenda[i]) {
       if (shift != ShiftType::OFF) {
@@ -83,8 +91,8 @@ std::ostream& operator<<(std::ostream& os, const Schedule& schedule) {
     }
     std::sort(sortedEmployees.begin(), sortedEmployees.end());
     for (const auto& e : sortedEmployees) {
-      os << e.name() << "(" << e.id() << ", " << gradeToString(e.grade())
-         << ") ";
+      os << e.name() << "(" << gradeToString(e.grade()) << ") "
+         << std::setw(10);
     }
     os << "\n";
     day = nextDay(day);

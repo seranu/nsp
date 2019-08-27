@@ -109,6 +109,16 @@ std::string dayToString(Day day) {
   return s_dayStrings[day];
 }
 
+
+std::string shiftTypeToString(ShiftType type) {
+  static std::unordered_map<ShiftType, std::string> s_shiftTypes = {
+      {ShiftType::OFF, "Off"},
+      {ShiftType::NORMAL, "Normal"},
+      {ShiftType::SHORT, "Short"}};
+  assert(s_shiftTypes.find(type) != s_shiftTypes.end());
+  return s_shiftTypes[type];
+}
+
 int daysInMonth(Month m) {
   static std::unordered_map<Month, int> s_days = {
       {Month::January, 31},   {Month::February, 28},  // TODO: an bisect

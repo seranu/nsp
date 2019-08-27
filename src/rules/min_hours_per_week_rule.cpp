@@ -1,7 +1,8 @@
-#include <rules/min_hours_per_week_rule.h>
+#include "rules/min_hours_per_week_rule.h"
 #include <sstream>
 #include <string>
-#include <utils.h>
+#include "log.h"
+#include "utils.h"
 
 namespace nsp {
 void MinHoursPerWeekRule::search(
@@ -14,6 +15,12 @@ void MinHoursPerWeekRule::search(
         if (i != 0 && i % 7 == 0) {
           if (hoursThisWeek < m_value) {
             onFail(emp, i - 7, i, hoursThisWeek);
+            //            LOG_DEBUG(
+            //                "Employee %s has less than %d hours(%d) to work in
+            //                week "
+            //                "%zu-%zu",
+            //                emp.name().c_str(), m_value, hoursThisWeek, i - 7,
+            //                i);
           }
           hoursThisWeek = 0;
         }
@@ -21,6 +28,11 @@ void MinHoursPerWeekRule::search(
       }
       if (hoursThisWeek < m_value) {
         auto days = daysInMonth(schedule.month());
+        //        LOG_DEBUG(
+        //            "Employee %s has less than %d hours(%d) to work in week
+        //            %d-%d", emp.name().c_str(), m_value, hoursThisWeek, days -
+        //            7, days);
+
         onFail(emp, days, days - 7, hoursThisWeek);
       }
     }
