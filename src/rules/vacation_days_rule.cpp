@@ -4,15 +4,31 @@
 #include <utils.h>
 
 namespace nsp {
-int VacationDaysRule::apply(const Schedule& schedule) {
-  int totalPenalty = 0;
-  const auto& shift = schedule.shifts(m_employeeId);
+
+void VacationDaysRule::search(
+    const Schedule &schedule,
+    std::function<void(const Employee &, int)> onFail) const {
   for (auto i : m_vacationDays) {
-    if (shift[i - 1] != ShiftType::OFF) {
-      totalPenalty += m_penalty;
+    for (auto const &[emp, shift] : schedule.agenda(i - 1)) {
+      if (emp.id() == m_employeeId && shift != ShiftType::OFF) {
+        onFail(emp, i - 1);
+      }
     }
   }
+}
+
+int VacationDaysRule::apply(const Schedule &schedule) {
+  int totalPenalty = 0;
+  search(schedule, [&](const Employee &, int) { totalPenalty += m_penalty; });
   return totalPenalty;
+}
+std::vector<ScheduleAction> VacationDaysRule::suggest(
+    const Schedule &schedule) const {
+  std::vector<ScheduleAction> result;
+  search(schedule, [&](const Employee &emp, int day) {
+    result.push_back(ScheduleAction::createDeleteAction(emp, day));
+  });
+  return result;
 }
 
 std::string VacationDaysRule::print() const {

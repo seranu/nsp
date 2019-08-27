@@ -1,22 +1,21 @@
 #pragma once
-#include <date.h>
-#include <employee.h>
-#include <nsp_types.h>
-#include <utils.h>
-#include <unordered_map>
+#include <map>
 #include <vector>
+#include "date.h"
+#include "employee.h"
+#include "nsp_types.h"
+#include "utils.h"
 
 namespace nsp {
 
-using day_agenda_t = std::unordered_map<Employee, ShiftType, EmployeeHash>;
-using shift_t =
-    std::unordered_map<Employee, std::vector<ShiftType>, EmployeeHash>;
+using day_agenda_t = std::map<Employee, ShiftType>;
+using shift_t = std::map<Employee, std::vector<ShiftType>>;
 using agenda_t = std::vector<day_agenda_t>;
 
 class Schedule {
  private:
-  const Month m_month;
-  const int m_numDays;
+  Month m_month;
+  int m_numDays;
   shift_t m_shifts;
   agenda_t m_agenda;
 
@@ -25,9 +24,14 @@ class Schedule {
  public:
   Schedule(Month m)
       : m_month(m), m_numDays(daysInMonth(m)), m_agenda(m_numDays) {}
+  Schedule(const Schedule &) = default;
+  Schedule(Schedule &&) = default;
+  Schedule &operator=(const Schedule &) = default;
+  Schedule &operator=(Schedule &&) = default;
   void addShift(const Employee&, int, ShiftType);
   void deleteShift(const Employee&, int);
   void moveShift(const Employee&, int, int);
+  void switchShift(const Employee &, int, const Employee &, int);
   agenda_t agenda() const { return m_agenda; }
   shift_t shifts() const { return m_shifts; }
   Month month() const { return m_month; }
@@ -36,5 +40,10 @@ class Schedule {
   const std::vector<ShiftType> &shifts(const size_t employeeId) const;
   const day_agenda_t& agenda(int day) const { return m_agenda[day]; }
 };
+
+struct ScheduleHash {
+  std::size_t operator()(const Schedule &) const;
+};
+
 std::ostream &operator<<(std::ostream &, const Schedule &);
 }  // namespace nsp

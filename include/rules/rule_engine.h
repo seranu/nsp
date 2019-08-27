@@ -1,9 +1,10 @@
 #pragma once
 
-#include "irule.h"
-#include "nsp_types.h"
 #include <memory>
 #include <vector>
+#include "irule.h"
+#include "nsp_types.h"
+#include "schedule_action.h"
 
 namespace nsp
 {
@@ -18,7 +19,8 @@ public:
   createFromConfiguration(const IConfiguration &);
   RuleEngine(std::vector<std::shared_ptr<IRule>> rules)
       : m_rules(move(rules)) {}
-  Penalty computePenalty(const Solution &) const;
+  Penalty computePenalty(Solution &) const;
   bool valid(const Solution &) const;
+  std::vector<ScheduleAction> suggest(const Solution &) const;
 };
 }

@@ -10,6 +10,7 @@ struct EmployeeHash {
   std::size_t operator()(const Employee &) const;
 };
 
+std::size_t hash_value(Employee const &e);
 int roosterScore(Grade g);
 
 class Employee
@@ -25,6 +26,10 @@ private:
       EmployeeHash h;
       m_id = h(*this);
     }
+    Employee(const Employee &) = default;
+    Employee(Employee &&) = default;
+    Employee &operator=(const Employee &) = default;
+    Employee &operator=(Employee &&) = default;
     std::string name() const { return m_name; }
     Grade grade() const { return m_grade; }
     size_t id() const { return m_id; }

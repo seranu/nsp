@@ -2,50 +2,65 @@
     "month" : "september",
     "employees" : [
         {
-            "name" : "John",
+            "name" : "Oana",
             "rules" : [
-             { "type" : "min_weekly_hours", "value" : 35, "penalty" : 100 },
-             { "type" : "max_weekly_hours", "value" : 45, "penalty" : 100 },
-             { "type" : "vacation", "value" : [ 15, 25 ], "penalty" : 100 }
+             { "type" : "min_weekly_hours", "value" : 35, "penalty" : 1000 },
+             { "type" : "max_weekly_hours", "value" : 45, "penalty" : 1000 },
+             { "type" : "vacation", "value" : [ 15, 25 ], "penalty" : 1000 }
             ],
             "grade" : "manager"
         },
         {
-            "name": "Richard",
+            "name": "Mailen",
             "rules" : [
-             { "type" : "min_weekly_hours", "value" : 35, "penalty" : 100 },
-             { "type" : "max_weekly_hours", "value" : 45, "penalty" : 100 },
-             { "type" : "vacation", "value" : [ 1, 13, 14 ], "penalty" : 100 }
+             { "type" : "min_weekly_hours", "value" : 35, "penalty" : 1000 },
+             { "type" : "max_weekly_hours", "value" : 45, "penalty" : 1000 },
+             { "type" : "vacation", "value" : [ 1, 13, 14 ], "penalty" : 1000 }
             ],
             "grade": "regular"
         },
         {
-            "name": "Lily",
+            "name": "Prianca",
 "rules" : [
-             { "type" : "min_weekly_hours", "value" : 35, "penalty" : 100 },
-             { "type" : "max_weekly_hours", "value" : 45, "penalty" : 100 },
-             { "type" : "vacation", "value" : [ 3, 22, 30 ], "penalty" : 100 }
+             { "type" : "min_weekly_hours", "value" : 35, "penalty" : 1000 },
+             { "type" : "max_weekly_hours", "value" : 45, "penalty" : 1000 },
+             { "type" : "vacation", "value" : [ 3, 22, 30 ], "penalty" : 1000 }
+            ],
+            "grade": "intern"
+        },
+{
+            "name": "Alexandra",
+"rules" : [
+             { "type" : "min_weekly_hours", "value" : 35, "penalty" : 1000 },
+             { "type" : "max_weekly_hours", "value" : 45, "penalty" : 1000 },
+             { "type" : "vacation", "value" : [ 9, 21, 30 ], "penalty" : 1000 }
+            ],
+            "grade": "regular"
+        },
+        {
+            "name": "Phane",
+"rules" : [
+             { "type" : "min_weekly_hours", "value" : 35, "penalty" : 1000 },
+             { "type" : "max_weekly_hours", "value" : 45, "penalty" : 1000 },
+             { "type" : "vacation", "value" : [ 17, 18, 19 ], "penalty" : 1000 }
             ],
             "grade": "regular"
         }
+
+
     ],
     "general_rules": [
         { 
             "type" : "consecutive_working_days", 
             "value" : 4,
-            "penalty" : 100
+            "penalty" : 1000
         },
-		{ "type": "rooster_requirement", "day": "Sunday",    "value" : 210, "penalty": 100 },
-		{ "type": "rooster_requirement", "day": "Monday",    "value" : 250, "penalty": 100 },
-		{ "type": "rooster_requirement", "day": "Tuesday",   "value" : 250, "penalty": 100 },
-		{ "type": "rooster_requirement", "day": "Wednesday", "value" : 210, "penalty": 100 },
-		{ "type": "rooster_requirement", "day": "Thursday",  "value" : 210, "penalty": 100 },
-		{ "type": "rooster_requirement", "day": "Friday",    "value" : 250, "penalty": 100 },
-		{ "type": "rooster_requirement", "day": "Saturday",  "value" : 210, "penalty": 100 },
-        {
-            "type": "shop_closed",
-            "value": [ 27 ],
-            "penalty": 100
-        }
+		{ "type": "rooster_requirement", "day": "Sunday",    "value" : 210, "penalty": 1000 },
+		{ "type": "rooster_requirement", "day": "Monday",    "value" : 250, "penalty": 1000 },
+		{ "type": "rooster_requirement", "day": "Tuesday",   "value" : 250, "penalty": 1000 },
+		{ "type": "rooster_requirement", "day": "Wednesday", "value" : 210, "penalty": 1000 },
+		{ "type": "rooster_requirement", "day": "Thursday",  "value" : 210, "penalty": 1000 },
+		{ "type": "rooster_requirement", "day": "Friday",    "value" : 250, "penalty": 1000 },
+		{ "type": "rooster_requirement", "day": "Saturday",  "value" : 210, "penalty": 1000 }
     ] 
 }

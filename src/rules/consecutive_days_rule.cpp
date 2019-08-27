@@ -5,8 +5,9 @@
 #include "utils.h"
 
 namespace nsp {
-int ConsecutiveDaysRule::apply(const Schedule& schedule) {
-  int totalPenalty = 0;
+void ConsecutiveDaysRule::search(
+    const Schedule& schedule,
+    std::function<void(const Employee&, int, ShiftType)> onFail) const {
   std::unordered_map<Employee, int, EmployeeHash> seen;
   for (int i = 0; i < daysInMonth(schedule.month()); i++) {
     const auto& dayAgenda = schedule.agenda(i);
@@ -16,12 +17,27 @@ int ConsecutiveDaysRule::apply(const Schedule& schedule) {
       } else {
         seen[emp]++;
         if (seen[emp] > 3) {
-          totalPenalty += m_penalty;
+          onFail(emp, i, shift);
         }
       }
     }
   }
+}
+
+int ConsecutiveDaysRule::apply(const Schedule& schedule) {
+  int totalPenalty = 0;
+  search(schedule,
+         [&](const Employee&, int, ShiftType) { totalPenalty += m_penalty; });
   return totalPenalty;
+}
+
+std::vector<ScheduleAction> ConsecutiveDaysRule::suggest(
+    const Schedule& schedule) const {
+  std::vector<ScheduleAction> result;
+  search(schedule, [&](const Employee& emp, int day, ShiftType) {
+    result.push_back(ScheduleAction::createDeleteAction(emp, day));
+  });
+  return result;
 }
 
 std::string ConsecutiveDaysRule::print() const {

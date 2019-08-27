@@ -1,11 +1,13 @@
 #include "solution_factory.h"
-#include <employee.h>
-#include <rules/include_all_rules.h>
-#include <utils.h>
+#include "employee.h"
+#include "rules/include_all_rules.h"
+#include "utils.h"
+
 #include <unordered_map>
 
 namespace nsp {
 Solution SolutionFactory::createRandomSolution(const IConfiguration& config) {
+  srand(time(NULL));
   Schedule schedule(config.month());
   // TODO: use vector<Employee*>
   std::vector<Employee> employees = config.employees();

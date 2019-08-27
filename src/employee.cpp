@@ -1,8 +1,8 @@
 #include "employee.h"
-#include <utils.h>
 #include <boost/functional/hash.hpp>
 #include <cassert>
 #include <unordered_map>
+#include "utils.h"
 
 namespace nsp
 {
@@ -11,6 +11,11 @@ std::size_t EmployeeHash::operator()(const Employee &e) const {
   boost::hash_combine(seed, e.name());
   boost::hash_combine(seed, e.grade());
   return seed;
+}
+
+std::size_t hash_value(Employee const &e) {
+  EmployeeHash h;
+  return h(e);
 }
 
 int roosterScore(Grade g) {

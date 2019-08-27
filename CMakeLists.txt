@@ -38,12 +38,14 @@ set(SOURCES
     "src/schedule.cpp"
     "src/solution_factory.cpp"
     "src/printers.cpp"
+    "src/schedule_action.cpp"
     )
 
 set(TEST_SOURCES
     "test/test_date.cpp"
     "test/test_configuration.cpp"
     "test/test_schedule.cpp"
+    "test/test_solution.cpp"
     )
 
   set(TO_LINK_LIBRARIES 

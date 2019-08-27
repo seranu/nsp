@@ -14,6 +14,9 @@ public:
  int apply(const Schedule &schedule) override;
  std::vector<unsigned short> value() const { return m_daysClosed; }
  std::string print() const override;
+ std::vector<ScheduleAction> suggest(const Schedule &) const override {
+   return std::vector<ScheduleAction>();
+ }
 
 private:
   std::vector<unsigned short> m_daysClosed;

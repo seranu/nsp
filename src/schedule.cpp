@@ -1,7 +1,16 @@
-#include <schedule.h>
+#include "schedule.h"
 #include <algorithm>
+#include <boost/functional/hash.hpp>
 
 namespace nsp {
+
+std::size_t ScheduleHash::operator()(const Schedule& schedule) const {
+  size_t seed = 0;
+  boost::hash_combine(seed, schedule.month());
+  boost::hash_combine(seed, schedule.agenda());
+  //  boost::hash_combine(seed, schedule.shifts());
+  return seed;
+}
 
 const std::vector<ShiftType>& Schedule::emptyShift() const {
   static std::vector<ShiftType> s_empyShift;
@@ -32,6 +41,13 @@ void Schedule::moveShift(const Employee& employee, int from, int to) {
   auto shiftType = m_shifts[employee][from];
   deleteShift(employee, from);
   addShift(employee, to, shiftType);
+}
+
+void Schedule::switchShift(const Employee& lhs, int lhsDay, const Employee& rhs,
+                           int rhsDay) {
+  assert(lhsDay < m_numDays && rhsDay < m_numDays);
+  moveShift(lhs, lhsDay, rhsDay);
+  moveShift(rhs, rhsDay, lhsDay);
 }
 
 const std::vector<ShiftType>& Schedule::shifts(const Employee& emp) const {
